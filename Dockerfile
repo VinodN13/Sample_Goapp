@@ -1,22 +1,20 @@
-FROM golang:latest AS build-env
+FROM golang:latest AS builder
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
-RUN go mod download
+ADD go.mod go.sum main.go 
 
-COPY *.go ./
+COPY main.go /app
 
-RUN go build -o /docker-g
+RUN go build -o /hello
 
 
 FROM alpine:latest
 
 WORKDIR /app
 
-COPY --from=build /docker-g /docker-g
+COPY --from=builder /app/hello /app
 
 EXPOSE 8080
 
-ENTRYPOINT ["/docker-gs-ping"]
+ENTRYPOINT ["./hello"]
