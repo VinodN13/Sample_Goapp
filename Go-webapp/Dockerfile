@@ -1,10 +1,10 @@
 FROM golang:latest AS build-env
 
 WORKDIR /app
-ENV SRC_DIR=/go/src/gitlab.com/opstree/Go-webapp/
+ENV SRC_DIR=/go/src/Go-webapp/
 ADD . $SRC_DIR
 RUN cd $SRC_DIR; go get -v -t -d ./... && \
-    go build -o ot-go-webapp; cp Go-webapp /app/
+    go build -o Go-webapp; cp Go-webapp /app/
 
 FROM alpine:latest
 WORKDIR /app
