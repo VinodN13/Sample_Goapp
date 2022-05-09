@@ -2,11 +2,12 @@ FROM golang:latest AS builder
 
 WORKDIR /app
 
-ADD go.mod go.sum main.go 
+ADD . /app 
+
 
 COPY main.go /app
 
-RUN go build -o /hello
+RUN go build -o hello 
 
 
 FROM alpine:latest
