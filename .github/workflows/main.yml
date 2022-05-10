@@ -38,5 +38,5 @@ jobs:
       env:                                                                                                          
         RELEASE_IMAGE: ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
       with:                                                                                                         
-        args: set image deployment/deploygoapp golang=${{ env.RELEASE_IMAGE }}
+        args: kubectl set image deployment/deploygoapp golang=${{ env.RELEASE_IMAGE }}
 
