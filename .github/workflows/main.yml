@@ -32,6 +32,11 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      
+    - name: Deploy to Kubernetes cluster                                                                            
+      uses: kodermax/kubectl-aws-eks@master                                                                         
+      env:                                                                                                          
+        RELEASE_IMAGE: ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+      with:                                                                                                         
+        args: set image deployment/deploygoapp golang=${{ env.RELEASE_IMAGE }}
 
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
