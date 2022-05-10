@@ -10,12 +10,12 @@ COPY main.go /app
 RUN go build -o hello 
 
 
-FROM alpine:latest
+# FROM alpine:latest
 
-WORKDIR /app
+# WORKDIR /app-01
 
-COPY --from=builder /app/hello /app
+# COPY --from=builder /app/hello /app-01
 
 EXPOSE 8080
 
-ENTRYPOINT ["./hello"]
+CMD ["./hello"]
