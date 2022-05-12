@@ -33,14 +33,24 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       
-    - name: Deploy to Kubernetes cluster                                                                            
-      uses: kodermax/kubectl-aws-eks@master                                                                         
-      env:                                                                                                          
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-        IMAGE_TAG: ${{ github.sha }}
-        KUBECTL_VERSION: "v1.23.6"
-      with:
-        args: set image deployment/deploygoapp golang=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#    - name: Deploy to Kubernetes cluster                                                                            
+#      uses: kodermax/kubectl-aws-eks@master                                                                         
+#      env:                                                                                                          
+#        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+#        ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+#        IMAGE_TAG: ${{ github.sha }}
+#        KUBECTL_VERSION: "v1.23.6"
+#      with:
+#        args: set image deployment/deploygoapp golang=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+    - name: Deploy to Kubernetes cluster
+      uses: peymanmortazavi/eks-helm-deploy@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS__KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2
+        cluster-name: vinod-test-eks
+        namespace: default
+        values: tag=${{ github.sha }}
+        name: vinod-go-app
