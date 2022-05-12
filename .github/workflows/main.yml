@@ -52,6 +52,6 @@ jobs:
         aws-region: us-west-2
         cluster-name: vinod-test-eks
         namespace: default
-        chart-path: /home/vinod/Kubernetes/goapp/
+        chart-path: /home/vinod/Kubernetes/goapp
         values: tag=${{ github.sha }}
         name: vinod-go-app
