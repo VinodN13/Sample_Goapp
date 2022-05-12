@@ -53,5 +53,5 @@ jobs:
         cluster-name: vinod-test-eks
         namespace: default
         chart-path: ./goapp
-        values: tag=${{ github.sha }}
+        values: image.tag=${{ github.sha }}
         name: vinod-go-app
