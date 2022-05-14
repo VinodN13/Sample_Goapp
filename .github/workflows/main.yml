@@ -50,8 +50,8 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS__KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-west-2
-        cluster-name: vinod-test-eks
+        cluster-name: Vinod_EKS_Cluster
         namespace: default
         chart-path: ./goapp
         values: image.tag=${{ github.sha }}
-        name: vinod-go-app
+        name: vinod-go
